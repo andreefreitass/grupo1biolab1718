@@ -129,7 +129,7 @@ elif op == "N":
     f_name = input("Nome do ficheiro com a sequência da proteína:")
     xml_file = blastProt(db, f_name, "fasta")
     ids = resultadosBlast(xml_file,n)
-    file_homologas = proteinasBlastToFasta(f_name, lista)
+    file_homologas = proteinasBlastToFasta(f_name, ids)
     print(file_homologas)
     
     
