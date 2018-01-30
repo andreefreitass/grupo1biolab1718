@@ -5,7 +5,7 @@ do NCBI e extração de algumas features e qualifiers úteis
 """
 from Bio import Entrez, SeqIO
 
-#cria os
+#obtém da base de dados NCBI os ficheiros correspondentes aos genes de interesse no formato genbank e fasta
 def ficheirosGenes():
     Entrez.email = "sofiamgcarvalho@gmail.com"
 
@@ -94,6 +94,8 @@ def geneIdentification(lista):
                     dic[protein_id] = [gene_id, locus_tag, name, strand, ec_number, product, function, note]
     return dic
 
+
+#obtém da base de dados NCBI os ficheiros correspondentes às proteínas de interesse no formato genbank e fasta
 def ficheirosProteinas(dicionario):
     Entrez.email = "sofiamgcarvalho@gmail.com"
     
