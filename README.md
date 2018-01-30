@@ -18,7 +18,7 @@ O módulo genes.py deverá ser o primeiro a ser executado visto que permite obte
 
 Assim como o módulo blast.py deverá ser executado antes do alinhamentos.py visto que podem ser obtidos através dele ficheiros com várias sequências homólogas para usar diretamente nos sites onde é possível fazer alinhamentos.
 
-O módulo alinhamentos.py apenas precisa de ficheiros de alinhamentos ou de árvores filogenéticas, sendo que estes por serem obtidos visitando um site para fazer alinhamentos, deixamos alguns ficheiros de exemplo pra testar.
+O módulo alinhamentos.py apenas precisa de ficheiros de alinhamentos ou de árvores filogenéticas, sendo que estes são obtidos visitando um site para fazer alinhamentos, logo deixamos alguns ficheiros de exemplo pra testar.
 
 Já o literatura.py não necessita de qualquer ficheiro para ser executado.
 
