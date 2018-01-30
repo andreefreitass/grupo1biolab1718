@@ -4,6 +4,7 @@ Módulo responsável pela obtenção dos ficheiros dos genes de interesse e prot
 do NCBI e extração de algumas features e qualifiers úteis
 """
 from Bio import Entrez, SeqIO
+import csv
 
 #obtém da base de dados NCBI os ficheiros correspondentes aos genes de interesse no formato genbank e fasta
 def ficheirosGenes():
@@ -41,7 +42,10 @@ def ficheirosGenes():
         #txtFile.close()
         
     return lista_ficheiros
-        
+
+#obtém algumas das features e qualifiers úteis a partir dos ficheiros dos genes no formato genbank,
+#usando como chave o acession number NCBI da proteína que lhe corresponde e como value uma lista com
+#vários qualifiers       
 def geneIdentification(lista):
     
     #lista = ["sequenceGenbank0.gb","sequenceGenbank1.gb","sequenceGenbank2.gb",
@@ -94,6 +98,19 @@ def geneIdentification(lista):
                     dic[protein_id] = [gene_id, locus_tag, name, strand, ec_number, product, function, note]
     return dic
 
+#cria um ficheiro csv com agumas features e qualifiers presentes num dicionário
+def criaCSV(dicionario):
+    csv_name = 'geneFeatures.csv'
+    with open(csv_name, 'w', newline='') as csvfile:
+        fieldnames = ['gene_id','locus_tag', 'name', 'strand', 'protein_id', 'ec_number', 'product', 'function', 'note']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    
+        writer.writeheader()
+    
+        for key in dic:
+            writer.writerow({'gene_id':dic[key][0],'locus_tag': dic[key][1], 'name': dic[key][2], 'strand': dic[key][3],'protein_id': key, 'ec_number': dic[key][4], 'product':dic[key][5], 'function':dic[key][6], 'note':dic[key][7]})           
+            
+    return csv_name
 
 #obtém da base de dados NCBI os ficheiros correspondentes às proteínas de interesse no formato genbank e fasta
 def ficheirosProteinas(dicionario):
@@ -115,29 +132,19 @@ def ficheirosProteinas(dicionario):
         i+=1
         
     return lista_ficheiros
-    
+   
 
 gene_files = ficheirosGenes()
-print(gene_files)
-print()
+print("Ficheiros dos genes guardados: ", gene_files)
+
 dic = geneIdentification(gene_files)
-print(dic)
+print("\nDicionário criado: ", dic)
 
-"""
-import csv
+csv_file = criaCSV(dic)
+print("\nFicheiro " + csv_file + " guardado")
 
-with open('geneFeatures.csv', 'wb') as f:
-    w = csv.DictWriter(f, str(dic.keys()))
-    w.writeheader()
-    w.writerow(dic)
-"""
-
-print()
 protein_files = ficheirosProteinas(dic)
-print(protein_files)
-print()
-                
-                
-            
-    
-    
+print("\nFicheiros das proteínas guardados: ", protein_files)
+
+       
+
